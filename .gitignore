@@ -1,4 +1,5 @@
-rr
-pr
-fcfs
-sjn
+simulador
+*.bak
+*.o
+estado_simulacion.dat
+setup_proyecto.sh

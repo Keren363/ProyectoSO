@@ -1,39 +1,40 @@
 #include <stdio.h>
+#include "proceso.h"
 
-struct Proceso {
-    int id;
-    int llegada;
-    int rafaga;
-};
-
-void fcfs(struct Proceso p[], int n) {
+void ejecutar_fcfs(Proceso p[], int n, Metricas *m) {
     int tiempo = 0;
+    float total_espera = 0, total_retorno = 0;
 
-    printf("Ejecucion FCFS:\n");
+    printf("\n+---------------------------------------------+\n");
+    printf("|          Algoritmo FCFS                     |\n");
+    printf("+---------------------------------------------+\n");
+    printf("%-5s %-10s %-8s %-8s %-8s\n",
+           "PID", "Llegada", "Rafaga", "Espera", "Retorno");
+    printf("---------------------------------------------\n");
 
     for (int i = 0; i < n; i++) {
-
         if (tiempo < p[i].llegada)
             tiempo = p[i].llegada;
 
-        int espera = tiempo - p[i].llegada;
-        int retorno = espera + p[i].rafaga;
+        p[i].espera      = tiempo - p[i].llegada;
+        p[i].retorno     = p[i].espera + p[i].rafaga;
+        p[i].finalizacion = tiempo + p[i].rafaga;
 
-        printf("Proceso %d -> Espera: %d | Retorno: %d\n",
-               p[i].id, espera, retorno);
+        printf("%-5d %-10d %-8d %-8d %-8d\n",
+               p[i].id, p[i].llegada, p[i].rafaga,
+               p[i].espera, p[i].retorno);
 
+        total_espera  += p[i].espera;
+        total_retorno += p[i].retorno;
         tiempo += p[i].rafaga;
     }
-}
 
-int main() {
-    struct Proceso procesos[] = {
-        {1, 0, 5},
-        {2, 1, 3},
-        {3, 2, 7}
-    };
+    m->promedio_espera  = total_espera  / n;
+    m->promedio_retorno = total_retorno / n;
+    m->utilizacion_cpu  = 100.0f;
+    m->espera_archivo   = 0;
 
-    fcfs(procesos, 3);
-
-    return 0;
+    printf("---------------------------------------------\n");
+    printf("Promedio espera: %.2f | Promedio retorno: %.2f\n",
+           m->promedio_espera, m->promedio_retorno);
 }
