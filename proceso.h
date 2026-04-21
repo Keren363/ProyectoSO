@@ -29,5 +29,6 @@ void ejecutar_fcfs(Proceso p[], int n, Metricas *m);
 void ejecutar_sjn(Proceso p[], int n, Metricas *m);
 void ejecutar_rr(Proceso p[], int n, int quantum, Metricas *m);
 void ejecutar_prioridades(Proceso p[], int n, Metricas *m);
+void ejecutar_prioridades_desalojo(Proceso p[], int n, Metricas *m);
 
 #endif
