@@ -1,0 +1,5 @@
+#include <stdio.h>
+#include "proceso.h"
+
+void ejecutar_prioridades(Proceso p[], int n, Metricas *m) {
+    /* Ordenar: menor

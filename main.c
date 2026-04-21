@@ -92,11 +92,11 @@ int main(void) {
         printf("|  2. Ejecutar FCFS                |\n");
         printf("|  3. Ejecutar SJN                 |\n");
         printf("|  4. Ejecutar Round Robin         |\n");
-        printf("|  5. Ejecutar Prioridades         |\n");
+        printf("|  5. Prioridades SIN desalojo     |\n");
         printf("|  6. Archivo compartido (demo)    |\n");
         printf("|  7. Ver reporte de metricas      |\n");
         printf("|  8. Guardar estado               |\n");
-        printf("|  9. Cargar estado                |\n");
+        printf("| 10. Prioridades CON desalojo     |\n");
         printf("|  0. Salir                        |\n");
         printf("+----------------------------------+\n");
         printf("Opcion: ");
@@ -138,12 +138,12 @@ int main(void) {
         }
 
         case 5:
-            if (!n) { printf("[!] Primero ingrese procesos.\n"); break; }
-            for (int i = 0; i < n; i++) copia[i] = procesos[i];
-            ejecutar_prioridades(copia, n, &metricas);
-            strcpy(algoritmo, "Prioridades");
-            for (int i = 0; i < n; i++) procesos[i] = copia[i];
-            break;
+          if (!n) { printf("[!] Primero ingrese procesos.\n"); break; }
+          for (int i = 0; i < n; i++) copia[i] = procesos[i];
+          ejecutar_prioridades(copia, n, &metricas);
+          strcpy(algoritmo, "Prioridades-SinDesalojo");
+          for (int i = 0; i < n; i++) procesos[i] = copia[i];
+          break;
 
         case 6:
             if (!n) { printf("[!] Primero ingrese procesos.\n"); break; }
@@ -173,6 +173,14 @@ int main(void) {
             }
             break;
         }
+     
+   case 10:
+    if (!n) { printf("[!] Primero ingrese procesos.\n"); break; }
+    for (int i = 0; i < n; i++) copia[i] = procesos[i];
+    ejecutar_prioridades_desalojo(copia, n, &metricas);
+    strcpy(algoritmo, "Prioridades-ConDesalojo");
+    for (int i = 0; i < n; i++) procesos[i] = copia[i];
+    break;
 
         case 0:
             printf("Hasta luego!\n");
